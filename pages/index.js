@@ -19,7 +19,7 @@ export default function Home() {
         eb.withBusyStatus('BUSY')
         eb.withAttendee('Chris', 'chris@example.com',true,'ACCEPTED','REQ-PARTICIPANT')
         eb.withAttendee('Ben', 'ben@example.com',true,'ACCEPTED','REQ-PARTICIPANT')
-        eb.downloadFile();
+        eb.downloadAsFile();
     }
     return (
         <div className="container">

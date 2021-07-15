@@ -46,7 +46,7 @@ export default function EventBuilder() {
 		return this.event;
 	};
 
-	this.downloadFile = (filename = "invite", ext = ".ics") => {
+	this.downloadAsFile = (filename = "invite", ext = ".ics") => {
 		ics.createEvent(this.event, (error, value) => {
 			if (error) {
 				throw error.message;
