@@ -20,6 +20,10 @@ export default function Home() {
         eb.withAttendee('Chris', 'chris@example.com',true,'ACCEPTED','REQ-PARTICIPANT')
         eb.withAttendee('Ben', 'ben@example.com',true,'ACCEPTED','REQ-PARTICIPANT')
         eb.downloadAsFile();
+        
+        //getting the actual object :
+        const event = eb.get();
+        console.log(event)
     }
     return (
         <div className="container">

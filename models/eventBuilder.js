@@ -4,37 +4,35 @@ import { saveAs } from "file-saver";
 import * as ics from "ics";
 
 export default function EventBuilder() {
-	this.event = new Event();
+let	event = new Event();
 
 	this.withStartDateOf = (year, month, day, hour, minute) =>
-		(this.event.start = [year, month, day, hour, minute]);
+		(event.start = [year, month, day, hour, minute]);
 
 	this.withDurationOf = (hours, minutes) =>
-		(this.event.duration = { hours, minutes });
+		(event.duration = { hours, minutes });
 
-	this.withTitle = (title) => (this.event.title = title);
+	this.withTitle = (title) => (event.title = title);
 
-	this.withDescription = (description = "") =>
-		(this.event.description = description);
+	this.withDescription = (description = "") => (event.description = description);
 
-	this.withLocation = (location = "") => (this.event.location = location);
+	this.withLocation = (location = "") => (event.location = location);
 
-	this.withUrl = (url = "") => (this.event.url = url);
+	this.withUrl = (url = "") => (event.url = url);
 
 	this.withGeo = (latitude = 0, longitude = 0) =>
-		(this.event.geo = { lat: latitude, lon: longitude });
+		(event.geo = { lat: latitude, lon: longitude });
 
-	this.withCategory = (category = "") => this.event.categories.push(category);
+	this.withCategory = (category = "") => event.categories.push(category);
 
-	this.withStatusOf = (status = "CONFIRMED") => (this.event.status = status);
+	this.withStatusOf = (status = "CONFIRMED") => (event.status = status);
 
-	this.withBusyStatus = () => (this.event.busyStatus = "busyStatus");
+	this.withBusyStatus = () => (event.busyStatus = "busyStatus");
 
-	this.withOrganizer = (name, email) =>
-		(this.event.organizer = { name, email });
+	this.withOrganizer = (name, email) => (event.organizer = { name, email });
 
 	this.withAttendee = (name, email, rsvp, partstat, role) =>
-		this.event.attendees.push({
+		event.attendees.push({
 			name,
 			email,
 			rsvp,
@@ -42,16 +40,16 @@ export default function EventBuilder() {
 			role,
 		});
 
-	this.build = function () {
-		return this.event;
+	this.get = function () {
+		return event;
 	};
 
 	this.downloadAsFile = (filename = "invite", ext = ".ics") => {
-		ics.createEvent(this.event, (error, value) => {
+		ics.createEvent(event, (error, value) => {
 			if (error) {
 				throw error.message;
 			}
-			if (this.event.length < 1) {
+			if (value.length < 1) {
 				throw "Cannot generate file. Event details were not added.";
 			}
 			const blob = new Blob([value]);
