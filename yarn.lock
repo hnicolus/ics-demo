@@ -844,14 +844,6 @@ iconv-lite@^0.6.2:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
-ics-file-export@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ics-file-export/-/ics-file-export-1.0.1.tgz#55eae322234da848c8f708546f7bfe43a0d70c16"
-  integrity sha512-rYjQP8oVcBwWQ7AtquBfnnXStojmHTt6L19RfdlJ1OKFGoTmc/CqGEteIWpX+TZTGwiW1mKB5mORbqzMxC98/Q==
-  dependencies:
-    blob "^0.1.0"
-    file-saver "^2.0.5"
-
 ics@^2.29.0:
   version "2.29.0"
   resolved "https://registry.yarnpkg.com/ics/-/ics-2.29.0.tgz#85d3bef5d17c5c3b9ee2e8986042549d8dcd1834"

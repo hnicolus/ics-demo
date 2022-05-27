@@ -3,49 +3,80 @@ import Blob from "blob";
 import { saveAs } from "file-saver";
 import * as ics from "ics";
 
-export default function EventBuilder() {
-let	event = new Event();
 
-	this.withStartDateOf = (year, month, day, hour, minute) =>
-		(event.start = [year, month, day, hour, minute]);
+export default class EventBuilder {
 
-	this.withDurationOf = (hours, minutes) =>
-		(event.duration = { hours, minutes });
+	constructor() {
+		this._event = new Event();
+	}
 
-	this.withTitle = (title) => (event.title = title);
+	withStartDateOf = (year, month, day, hour, minute) => {
+		this._event.start = [year, month, day, hour, minute];
+		return this;
+	}
 
-	this.withDescription = (description = "") => (event.description = description);
+	withDurationOf = (hours, minutes) => {
+		this._event.duration = { hours, minutes };
+		return this;
+	}
 
-	this.withLocation = (location = "") => (event.location = location);
+	withTitle = (title) => {
+		this._event.title = title
+		return this;
+	}
 
-	this.withUrl = (url = "") => (event.url = url);
+	withDescription = (description = "") => {
+		this._event.description = description
+		return this;
+	}
 
-	this.withGeo = (latitude = 0, longitude = 0) =>
-		(event.geo = { lat: latitude, lon: longitude });
+	withLocation = (location = "") => {
+		this._event.location = location
+		return this;
+	}
 
-	this.withCategory = (category = "") => event.categories.push(category);
+	withUrl = (url = "") => {
+		this._event.url = url
+		return this;
+	}
 
-	this.withStatusOf = (status = "CONFIRMED") => (event.status = status);
+	withGeo = (latitude = 0, longitude = 0) => {
+		this._event.geo = { lat: latitude, lon: longitude }
+		return this;
+	}
 
-	this.withBusyStatus = () => (event.busyStatus = "busyStatus");
+	withCategory = (category = "") => {
+		this._event.categories.push(category);
+		return this
+	}
 
-	this.withOrganizer = (name, email) => (event.organizer = { name, email });
+	withStatusOf = (status = "CONFIRMED") => {
+		this._event.status = status
+		return this;
+	}
 
-	this.withAttendee = (name, email, rsvp, partstat, role) =>
-		event.attendees.push({
+	withBusyStatus = () => {
+		this._event.busyStatus = "busyStatus"
+		return this;
+	}
+
+	withOrganizer = (name, email) => {
+		this._event.organizer = { name, email }
+		return this;
+	}
+
+	withAttendee = (name, email, rsvp, partstat, role) => {
+		this._event.attendees.push({
 			name,
 			email,
 			rsvp,
 			partstat,
 			role,
 		});
-
-	this.get = function () {
-		return event;
-	};
-
-	this.downloadAsFile = (filename = "invite", ext = ".ics") => {
-		ics.createEvent(event, (error, value) => {
+		return this;
+	}
+	downloadAsFile = (filename = "invite", ext = ".ics") => {
+		ics.createEvent(this._event, (error, value) => {
 			if (error) {
 				throw error.message;
 			}
@@ -55,5 +86,8 @@ let	event = new Event();
 			const blob = new Blob([value]);
 			saveAs(blob, filename + ext);
 		});
+		return this;
 	};
+	toObject = () => this._event;
 }
+
